@@ -1,0 +1,28 @@
+{
+  "name": "angular-e-library",
+  "version": "1.0.0",
+  "homepage": "https://github.com/maksim-tolo/angular-e-library",
+  "authors": [
+    "Maksim Talochka <maksim_talochka@epam.com>"
+  ],
+  "main": "server.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "bootstrap": "~3.3.5",
+    "angular-ui-router": "ui-router#~0.2.15",
+    "ui-bootstrap": "~0.14.3"
+  }
+}
