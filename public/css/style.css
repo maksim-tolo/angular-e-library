@@ -99,7 +99,21 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
-.price input {
+.filter {
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    padding: 5px;
+}
+.filter input[type="number"] {
     width: 100px;
     display: inline-block;
+}
+.filter .checkbox {
+    margin-left: 20px;
+}
+.date-picker {
+    margin-bottom: 10px;
+}
+.book-types {
+    margin-left: 10px;
 }

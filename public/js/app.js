@@ -1,7 +1,7 @@
 'use strict';
 
 var eLibraryApp = angular
-  .module('eLibraryApp', ['ui.router'])
+  .module('eLibraryApp', ['ui.router', 'ngResource', 'ui.bootstrap.datepicker'])
   .config(['$stateProvider', '$urlRouterProvider', Config]);
 
 function Config($stateProvider, $urlRouterProvider) {

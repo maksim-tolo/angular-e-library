@@ -1,22 +1,47 @@
 'use strict';
 
-eLibraryApp.controller('PreviewCtrl', ['$scope', '$state', function($scope, $state) {
+eLibraryApp.controller('PreviewCtrl', ['previewService', '$state', function(previewService, $state) {
+
+  function convertTime(books) {
+    books.forEach(function(book) {
+      var publicationDate = new Date(book.publicationDate);
+
+      book.publicationDate = publicationDate.getDate() + '.' + (publicationDate.getMonth() + 1) + '.' + publicationDate.getFullYear();
+    });
+  }
+
+  function loadBooks(books) {
+    convertTime(books);
+    this.books = books;
+  }
+
+  this.books = [];
+
   this.filters = {
     price: {
-      from: 0,
-      to: 0
+      useFilter: false,
+      from: null,
+      to: null
     },
     numberOfPages: {
-      from: 0,
-      to: 0
+      useFilter: false,
+      from: null,
+      to: null
     },
     publicationDate: {
-      from: 0,
-      to: 0
+      useFilter: false,
+      date: null
     },
     bookType: {
+      useFilter: false,
       list: ['book', 'newspaper', 'magazine'],
-      selected: ['book']
+      selected: [false, false, false]
     }
-  }
+  };
+
+  this.getFilteredList = function() {
+    previewService.getFilteredBooks(this.filters).then(loadBooks.bind(this));
+  };
+
+  previewService.getBooks().then(loadBooks.bind(this));
 }]);
