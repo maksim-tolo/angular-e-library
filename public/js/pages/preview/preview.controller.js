@@ -2,7 +2,7 @@
 
 eLibraryApp.controller('PreviewCtrl', ['previewService', '$state', function(previewService, $state) {
 
-  function convertTime(books) {
+  function convertDate(books) {
     books.forEach(function(book) {
       var publicationDate = new Date(book.publicationDate);
 
@@ -10,8 +10,25 @@ eLibraryApp.controller('PreviewCtrl', ['previewService', '$state', function(prev
     });
   }
 
+  function cleanUpData(filters) {
+    var cleanedData = {};
+
+    for (var filter in filters) {
+      if (filters.hasOwnProperty(filter) && filters[filter].useFilter) {
+        cleanedData[filter] = {};
+        for (var filterProperty in filters[filter]) {
+          if (filters[filter].hasOwnProperty(filterProperty) && filterProperty !== 'useFilter') {
+            cleanedData[filter][filterProperty] = filters[filter][filterProperty];
+          }
+        }
+      }
+    }
+
+    return cleanedData;
+  }
+
   function loadBooks(books) {
-    convertTime(books);
+    convertDate(books);
     this.books = books;
   }
 
@@ -40,7 +57,7 @@ eLibraryApp.controller('PreviewCtrl', ['previewService', '$state', function(prev
   };
 
   this.getFilteredList = function() {
-    previewService.getFilteredBooks(this.filters).then(loadBooks.bind(this));
+    previewService.getFilteredBooks(cleanUpData(this.filters)).then(loadBooks.bind(this));
   };
 
   previewService.getBooks().then(loadBooks.bind(this));

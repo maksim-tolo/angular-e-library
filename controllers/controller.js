@@ -1,14 +1,18 @@
 module.exports = function (dataService) {
 
-  function badRequestHandler(next) {
-    var err = new Error('Bad Request');
-    err.status = 400;
-    return next(err);
-  }
-
   return {
     getBooks: function (req, res, next) {
-      dataService.getBooks(function (data) {
+      var filters = null;
+
+      if (Object.keys(req.query).length) {
+        filters = {};
+        for (var filter in req.query) {
+          if (req.query.hasOwnProperty(filter)) {
+            filters[filter] = JSON.parse(req.query[filter]);
+          }
+        }
+      }
+      dataService.getBooks(filters, function (data) {
         if (data && data.err) {
           next(data.err);
         } else {
